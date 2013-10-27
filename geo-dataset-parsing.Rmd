@@ -1,0 +1,32 @@
+Systems Biology Analysis of 3T3-L1 Differentiation
+========================================================
+
+This was based on the tools learned about in the Coursera course.  This code was most recently run on `r date()` and is stored at `r getwd()`
+
+Dataset Acquisition
+--------------------
+
+```{r data-entry, echo=FALSE, message=FALSE}
+library(GEOquery)
+library(knitcitations)
+geo_accession <- 'GDS2660'
+gds <- getGEO(geo_accession, destdir=getwd())
+```
+
+The data was obtained from GEO using the dataset in GEO accession `r geo_accession`, which is described in `r citep("10.1016/j.cmet.2007.01.005")`.
+
+
+References
+-----------
+
+```{r bibliography, echo=FALSE, results='asis'}
+bibliography()
+```
+
+Session Information
+---------------------
+
+
+```{r session-info, echo=FALSE}
+sessionInfo()
+```
