@@ -1,7 +1,7 @@
 Systems Biology Analysis of 3T3-L1 Differentiation
 ========================================================
 
-This was based on the tools learned about in the Coursera course.  This code was most recently run on `r date()` and is stored at `r getwd()`.
+This was based on the tools learned about in the Coursera course.  This code was most recently run on `r date()` and is stored at `r getwd()`.  
 
 Dataset Acquisition
 --------------------
@@ -9,6 +9,7 @@ Dataset Acquisition
 ```{r data-entry, echo=FALSE, message=FALSE, warning=FALSE}
 library(GEOquery)
 library(knitcitations)
+biblio <- read.bib("citations.bib")
 geo_accession <- 'GSE6794'
 gse <- getGEO(geo_accession, destdir=getwd(),GSEMatrix=FALSE)
 
@@ -60,18 +61,23 @@ unique.complete.data <- unique.combined.data[complete.cases(unique.combined.data
 gate_input_filename <- 'Differentiation Time Course.clu'
 write.table(unique.complete.data, gate_input_filename, row.names=FALSE,col.names=FALSE, sep=",", quote=F)
 ```
+This file was processed using R `r citep(biblio['stats'])` and knitr `r citep(biblio[c('knitr1','knitr2','knitr3')])`.
+
 
 The data was obtained from GEO using the dataset in GEO accession `r geo_accession`, which is described in `r citep("10.1016/j.cmet.2007.01.005")`.  This file is described as:
 
 **`r Meta(gse)$summary[1]`**
 
-The file was downloaded, annotated and reformatted into an input file for GATE.  This file was saved as **`r gate_input_filename`**.
+The file was downloaded, annotated and reformatted into an input file for GATE `r citep("10.1093/bioinformatics/btp628")`.  This file was saved as **`r gate_input_filename`**.  The file was downloades using bioMart `r citep(biblio[c('biomaRt1', 'biomaRt2')])`.  The annotation was done using GEOquery `r citep(biblio['GEOquery'])`.
+
 
 References
 -----------
 
-```{r bibliography, echo=FALSE, results='asis'}
-bibliography()
+```{r bibliography, echo=FALSE, results='asis', message=FALSE}
+library(bibtex)
+write.bib(c('biomaRt', 'GEOquery', 'knitcitations', 'Biobase', 'stats', 'knitr'), file="citations.bib")
+bibliography("html")
 ```
 
 Session Information
