@@ -70,13 +70,57 @@ The data was obtained from GEO using the dataset in GEO accession `r geo_accessi
 
 The file was downloaded, annotated and reformatted into an input file for GATE `r citep("10.1093/bioinformatics/btp628")`.  This file was saved as **`r gate_input_filename`**.  The file was downloades using bioMart `r citep(biblio[c('biomaRt1', 'biomaRt2')])`.  The annotation was done using GEOquery `r citep(biblio['GEOquery'])`.
 
+Gene Expression Changes With Differentiation
+---------------------------------------------
+
+```{r differential-expression, warning=FALSE, echo=FALSE, message=FALSE}
+require(limma)
+pData(eset2)$treaments <- rep(colnames(combined.data)[2:11],2)
+treatments <- rep(colnames(combined.data)[2:11],2)
+design <- model.matrix(~0+treatments, eset2)
+
+#fit to that design matrix
+fit <- lmFit(eset2, design)
+cont.diff <- makeContrasts("treatmentsDiff.7d-treatmentsConfluent",levels=design)
+fit.diff <- contrasts.fit(fit, cont.diff)
+fit.diff <- eBayes(fit.diff)
+
+cont.conf <- makeContrasts("treatmentsConfluent-treatmentsPreconfluent",levels=design)
+fit.conf <- contrasts.fit(fit, cont.conf)
+fit.conf <- eBayes(fit.conf)
+```
+
+Time course dependent gene expression changes were done using limma `r citep(biblio['limma'])`.
+
+
+### Effects of Differentiation
+```{r table-differentiation, results='asis', echo=FALSE, message=FALSE}
+require(xtable)
+print(xtable(merge(topTable(fit.diff, adjust="BH", sort.by="p"), gene_list, by.x=0, by.y='affy_mu11ksuba')), type="html")
+```
+
+### Effects of Cellular Confluence
+```{r table-confluence, results='asis', echo=FALSE}
+print(xtable(merge(topTable(fit.conf, adjust="BH", sort.by="p"), gene_list, by.x=0, by.y='affy_mu11ksuba')), type="html")
+```
+
+### Some Sample Genes
+```{r barplot, echo=FALSE}
+gene.list <- c("Adipoq","Inpp4a","Tbc1d1","Med20","Cdipt")
+for (gene in gene.list) {
+barplot(as.numeric(unique.complete.data[unique.complete.data$Gene.Name==gene,2:10]),
+        main = gene,
+        las=2,
+        names.arg=colnames(unique.complete.data)[2:10])
+}
+```
 
 References
 -----------
 
 ```{r bibliography, echo=FALSE, results='asis', message=FALSE}
 library(bibtex)
-write.bib(c('biomaRt', 'GEOquery', 'knitcitations', 'Biobase', 'stats', 'knitr'), file="citations.bib")
+write.bib(c('biomaRt', 'GEOquery', 'knitcitations', 'Biobase', 'stats', 'knitr','limma'), file="citations.bib")
 bibliography("html")
 ```
 
