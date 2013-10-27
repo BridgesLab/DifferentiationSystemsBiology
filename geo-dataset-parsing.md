@@ -1,7 +1,7 @@
 Systems Biology Analysis of 3T3-L1 Differentiation
 ========================================================
 
-This was based on the tools learned about in the Coursera course.  This code was most recently run on Sun Oct 27 17:34:59 2013 and is stored at /Users/davebridges/Documents/Research/differentiation.  
+This was based on the tools learned about in the Coursera course.  This code was most recently run on Sun Oct 27 18:44:35 2013 and is stored at /Users/davebridges/Documents/Research/differentiation.  
 
 Dataset Acquisition
 --------------------
@@ -31,7 +31,7 @@ Time course dependent gene expression changes were done using limma (<a href="">
 
 ### Effects of Differentiation
 <!-- html table generated in R 3.0.2 by xtable 1.7-1 package -->
-<!-- Sun Oct 27 17:35:10 2013 -->
+<!-- Sun Oct 27 18:44:47 2013 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> Row.names </TH> <TH> logFC </TH> <TH> AveExpr </TH> <TH> t </TH> <TH> P.Value </TH> <TH> adj.P.Val </TH> <TH> B </TH> <TH> wikigene_name </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> aa104750_at </TD> <TD align="right"> -6.27 </TD> <TD align="right"> 7.00 </TD> <TD align="right"> -7.15 </TD> <TD align="right"> 0.01 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> -4.10 </TD> <TD> Med20 </TD> </TR>
@@ -51,7 +51,7 @@ Time course dependent gene expression changes were done using limma (<a href="">
 
 ### Effects of Cellular Confluence
 <!-- html table generated in R 3.0.2 by xtable 1.7-1 package -->
-<!-- Sun Oct 27 17:35:11 2013 -->
+<!-- Sun Oct 27 18:44:47 2013 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> Row.names </TH> <TH> logFC </TH> <TH> AveExpr </TH> <TH> t </TH> <TH> P.Value </TH> <TH> adj.P.Val </TH> <TH> B </TH> <TH> wikigene_name </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> aa027723_at </TD> <TD align="right"> -4.88 </TD> <TD align="right"> 7.78 </TD> <TD align="right"> -5.57 </TD> <TD align="right"> 0.02 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> -4.58 </TD> <TD> Cdipt </TD> </TR>
@@ -72,6 +72,32 @@ Time course dependent gene expression changes were done using limma (<a href="">
 ![plot of chunk barplot](figure/barplot1.png) ![plot of chunk barplot](figure/barplot2.png) ![plot of chunk barplot](figure/barplot3.png) ![plot of chunk barplot](figure/barplot4.png) ![plot of chunk barplot](figure/barplot5.png) 
 
 
+Short Term Differentiation Dataset
+-----------------------------------
+
+
+
+
+These data were published in <a href="http://dx.doi.org/10.1186/1471-2199-13-9">Fromm-Dornieden et al. (2012)</a>.  We analysed the non-polysome bound mRNA fraction comparing undifferentiated to 3T3-L1 cells treated with DMI for 6h.  Output the significantly different genes into a text file named GSE29744 Significant Genes.txt.
+
+<!-- html table generated in R 3.0.2 by xtable 1.7-1 package -->
+<!-- Sun Oct 27 18:45:14 2013 -->
+<TABLE border=1>
+<TR> <TH>  </TH> <TH> ID </TH> <TH> adj.P.Val </TH> <TH> P.Value </TH> <TH> t </TH> <TH> B </TH> <TH> logFC </TH> <TH> Gene.symbol </TH> <TH> Gene.title </TH>  </TR>
+  <TR> <TD align="right"> 2 </TD> <TD> A_51_P227090 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 98.25 </TD> <TD align="right"> 24.52 </TD> <TD align="right"> 6.95 </TD> <TD> Ramp3 </TD> <TD> receptor (calcitonin) activity modifying protein 3 </TD> </TR>
+  <TR> <TD align="right"> 1 </TD> <TD> A_51_P183571 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 77.65 </TD> <TD align="right"> 23.13 </TD> <TD align="right"> 6.25 </TD> <TD> Serpine1 </TD> <TD> serine (or cysteine) peptidase inhibitor, clade E, member 1 </TD> </TR>
+  <TR> <TD align="right"> 8 </TD> <TD> A_52_P266132 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 76.08 </TD> <TD align="right"> 22.99 </TD> <TD align="right"> 7.19 </TD> <TD> Fgl2 </TD> <TD> fibrinogen-like protein 2 </TD> </TR>
+  <TR> <TD align="right"> 4 </TD> <TD> A_51_P339793 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 74.39 </TD> <TD align="right"> 22.84 </TD> <TD align="right"> 5.06 </TD> <TD> Il1rl1 </TD> <TD> interleukin 1 receptor-like 1 </TD> </TR>
+  <TR> <TD align="right"> 9 </TD> <TD> A_52_P334562 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 71.69 </TD> <TD align="right"> 22.59 </TD> <TD align="right"> 5.53 </TD> <TD> Vdr </TD> <TD> vitamin D receptor </TD> </TR>
+  <TR> <TD align="right"> 3 </TD> <TD> A_51_P280455 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 68.50 </TD> <TD align="right"> 22.28 </TD> <TD align="right"> 5.12 </TD> <TD> Prg4 </TD> <TD> proteoglycan 4 (megakaryocyte stimulating factor, articular superficial zone protein) </TD> </TR>
+  <TR> <TD align="right"> 5 </TD> <TD> A_51_P384831 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 68.03 </TD> <TD align="right"> 22.23 </TD> <TD align="right"> 5.08 </TD> <TD> Syt12 </TD> <TD> synaptotagmin XII </TD> </TR>
+  <TR> <TD align="right"> 7 </TD> <TD> A_51_P489720 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 66.62 </TD> <TD align="right"> 22.08 </TD> <TD align="right"> 5.98 </TD> <TD> Slc16a11 </TD> <TD> solute carrier family 16 (monocarboxylic acid transporters), member 11 </TD> </TR>
+  <TR> <TD align="right"> 6 </TD> <TD> A_51_P449777 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 65.61 </TD> <TD align="right"> 21.97 </TD> <TD align="right"> 4.86 </TD> <TD> Pmepa1 </TD> <TD> prostate transmembrane protein, androgen induced 1 </TD> </TR>
+  <TR> <TD align="right"> 10 </TD> <TD> A_52_P488039 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 65.08 </TD> <TD align="right"> 21.91 </TD> <TD align="right"> 4.62 </TD> <TD>  </TD> <TD>  </TD> </TR>
+   </TABLE>
+
+
+
 References
 -----------
 
@@ -79,6 +105,7 @@ References
 - Steffen Durinck, Paul Spellman, Ewan Birney, Wolfgang Huber,   (2009) Mapping identifiers for the integration of genomic datasets with the R/Bioconductor package biomaRt.  <em>Nature Protocols</em>  <strong>4</strong>  1184-1191
 - Steffen Durinck, Yves Moreau, Arek Kasprzyk, Sean Davis, Bart  De Moor, Alvis Brazma, Wolfgang Huber,   (2005) BioMart and Bioconductor: a powerful link between biological databases and microarray data analysis.  <em>Bioinformatics</em>  <strong>21</strong>  3439-3440
 - Kevin J. Cheung, Iphigenia Tzameli, Pavlos Pissios, Ilsa Rovira, Oksana Gavrilova, Toshio Ohtsubo, Zhu Chen, Toren Finkel, Jeffrey S. Flier, Jeffrey M. Friedman,   (2007) Xanthine Oxidoreductase is A Regulator of Adipogenesis And Pparγ Activity.  <em>Cell Metabolism</em>  <strong>5</strong>  115-128  <a href="http://dx.doi.org/10.1016/j.cmet.2007.01.005">10.1016/j.cmet.2007.01.005</a>
+- Carolin Fromm-Dornieden, Silvia von der Heyde, Oleksandr Lytovchenko, Gabriela Salinas-Riester, Bertram Brenig, Tim Beissbarth, Bernhard G Baumgartner,   (2012) Novel Polysome Messages And Changes in Translational Activity Appear After Induction of Adipogenesis in 3t3-l1 Cells.  <em>Bmc Molecular Biology</em>  <strong>13</strong>  9-NA  <a href="http://dx.doi.org/10.1186/1471-2199-13-9">10.1186/1471-2199-13-9</a>
 - Sean Davis, Paul Meltzer,   (2007) GEOquery: a bridge between the Gene Expression Omnibus (GEO) and BioConductor.  <em>Bioinformatics</em>  <strong>14</strong>  1846-1847
 - Alastair Andrew, Alex Zvoleff, Brian Diggs, Cassio Pereira, Hadley Wickham, Heewon Jeon, Jeff Arnold, Jeremy Stephens, Jim Hester, Joe Cheng, Jonathan Keane, J.J. Allaire, Johan Toloe, Kohske Takahashi, Michel Kuhlmann, Nacho Caballero, Nick Salkowski, Noam Ross, Ramnath Vaidyanathan, Richard Cotton, Romain Francois, Sietse Brouwer, Simon Bernard, Taiyun Wei, Thibaut Lamadon, Tom Torsney-Weir, Trevor Davis, Weicheng Zhu, Wush Wu, Yihui Xie,   (2013) knitr: A general-purpose package for dynamic report generation in R.  <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>
 - Yihui Xie,   (2013) Dynamic Documents with {R} and knitr.  <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>

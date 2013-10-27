@@ -115,6 +115,98 @@ barplot(as.numeric(unique.complete.data[unique.complete.data$Gene.Name==gene,2:1
 }
 ```
 
+Short Term Differentiation Dataset
+-----------------------------------
+
+```{r short-term, echo=FALSE, message=FALSE, warning=FALSE}
+# load series and platform data from GEO
+
+gset <- getGEO("GSE29744", GSEMatrix =TRUE, destdir=getwd())
+if (length(gset) > 1) idx <- grep("GPL7202", attr(gset, "names")) else idx <- 1
+gset <- gset[[idx]]
+
+# make proper column names to match toptable 
+fvarLabels(gset) <- make.names(fvarLabels(gset))
+
+# group names for all samples
+sml <- c("G0","G0","G0","X","X","X","G1","G1","G1","X","X","X");
+
+# eliminate samples marked as "X"
+sel <- which(sml != "X")
+sml <- sml[sel]
+gset <- gset[ ,sel]
+
+# log2 transform
+ex <- exprs(gset)
+qx <- as.numeric(quantile(ex, c(0., 0.25, 0.5, 0.75, 0.99, 1.0), na.rm=T))
+LogC <- (qx[5] > 100) ||
+          (qx[6]-qx[1] > 50 && qx[2] > 0) ||
+          (qx[2] > 0 && qx[2] < 1 && qx[4] > 1 && qx[4] < 2)
+if (LogC) { ex[which(ex <= 0)] <- NaN
+  exprs(gset) <- log2(ex) }
+
+# set up the data and proceed with analysis
+fl <- as.factor(sml)
+gset$description <- fl
+design <- model.matrix(~ description + 0, gset)
+colnames(design) <- levels(fl)
+fit <- lmFit(gset, design)
+cont.matrix <- makeContrasts(G1-G0, levels=design)
+fit2 <- contrasts.fit(fit, cont.matrix)
+fit2 <- eBayes(fit2)
+tT <- topTable(fit2, adjust="BH")
+
+# load NCBI platform annotation
+gpl <- annotation(gset)
+platf <- getGEO(gpl, AnnotGPL=TRUE, destdir=getwd())
+ncbifd <- data.frame(attr(dataTable(platf), "table"))
+
+# replace original platform annotation
+tT <- tT[setdiff(colnames(tT), setdiff(fvarLabels(gset), "ID"))]
+tT <- merge(tT, ncbifd, by="ID")
+tT <- tT[order(tT$P.Value), ]  # restore correct order
+
+tT <- subset(tT, select=c("ID","adj.P.Val","P.Value","t","B","logFC","Gene.symbol","Gene.title"))
+write.fit(fit2, file="GSE29744 Analysis.csv", sep=",")
+################################################################
+#   Boxplot for selected GEO samples
+library(Biobase)
+library(GEOquery)
+
+# load series and platform data from GEO
+
+gset <- getGEO("GSE29744", GSEMatrix =TRUE, destdir=getwd())
+if (length(gset) > 1) idx <- grep("GPL7202", attr(gset, "names")) else idx <- 1
+gset <- gset[[idx]]
+
+# group names for all samples in a series
+sml <- c("G0","G0","G0","X","X","X","G1","G1","G1","X","X","X")
+
+# eliminate samples marked as "X"
+sel <- which(sml != "X")
+sml <- sml[sel]
+gset <- gset[ ,sel]
+
+# order samples by group
+ex <- exprs(gset)[ , order(sml)]
+sml <- sml[order(sml)]
+fl <- as.factor(sml)
+labels <- c("Day0","Hour6")
+
+#extract and save significantly different genes
+sig.genes <- topTable(fit2, adjust.method="BH", p.value=0.001, number=1000000, sort.by="logFC")$GENE_SYMBOL
+unique.sig.genes <- droplevels(unique(sig.genes))
+unique_sig_genes_filename <- "GSE29744 Significant Genes.txt"
+write(as.character(unique.sig.genes),  unique_sig_genes_filename)
+```
+
+These data were published in `r citet("10.1186/1471-2199-13-9")`.  We analysed the non-polysome bound mRNA fraction comparing undifferentiated to 3T3-L1 cells treated with DMI for 6h.  Output the significantly different genes into a text file named `r unique_sig_genes_filename`.
+
+```{r table-differentiation-short-term, results='asis', echo=FALSE, message=FALSE}
+print(xtable(tT), type="html")
+```
+
+
 References
 -----------
 
