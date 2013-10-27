@@ -1,7 +1,7 @@
 Systems Biology Analysis of 3T3-L1 Differentiation
 ========================================================
 
-This was based on the tools learned about in the Coursera course.  This code was most recently run on Sun Oct 27 15:04:51 2013 and is stored at /Users/davebridges/Documents/Research/differentiation.
+This was based on the tools learned about in the Coursera course.  This code was most recently run on Sun Oct 27 15:18:56 2013 and is stored at /Users/davebridges/Documents/Research/differentiation.
 
 Dataset Acquisition
 --------------------

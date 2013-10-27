@@ -58,7 +58,7 @@ unique.combined.data <- combined.data[!(duplicated(combined.data$Gene.Name)),]
 unique.complete.data <- unique.combined.data[complete.cases(unique.combined.data),]
 #save as clu file
 gate_input_filename <- 'Differentiation Time Course.clu'
-write.table(unique.combined.data, gate_input_filename, row.names=FALSE,col.names=FALSE, sep=",", quote=F)
+write.table(unique.complete.data, gate_input_filename, row.names=FALSE,col.names=FALSE, sep=",", quote=F)
 ```
 
 The data was obtained from GEO using the dataset in GEO accession `r geo_accession`, which is described in `r citep("10.1016/j.cmet.2007.01.005")`.  This file is described as:
