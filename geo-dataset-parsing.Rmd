@@ -1,20 +1,71 @@
 Systems Biology Analysis of 3T3-L1 Differentiation
 ========================================================
 
-This was based on the tools learned about in the Coursera course.  This code was most recently run on `r date()` and is stored at `r getwd()`
+This was based on the tools learned about in the Coursera course.  This code was most recently run on `r date()` and is stored at `r getwd()`.
 
 Dataset Acquisition
 --------------------
 
-```{r data-entry, echo=FALSE, message=FALSE}
+```{r data-entry, echo=FALSE, message=FALSE, warning=FALSE}
 library(GEOquery)
 library(knitcitations)
-geo_accession <- 'GDS2660'
-gds <- getGEO(geo_accession, destdir=getwd())
+geo_accession <- 'GSE6794'
+gse <- getGEO(geo_accession, destdir=getwd(),GSEMatrix=FALSE)
+
+#get the probesets
+probesets <- Table(GPLList(gse)[[1]])$ID
+
+data.matrix <- do.call(cbind,lapply(GSMList(gse),function(x)
+ {tab <- Table(x)
+ mymatch <- match(probesets,tab$ID_REF)
+ return(tab$VALUE[mymatch])
+ }))
+
+data.matrix <- apply(data.matrix,2,function(x) {as.numeric(as.character(x))})
+data.matrix <- log2(data.matrix)
+
+require(Biobase)
+rownames(data.matrix) <- probesets
+colnames(data.matrix) <- names(GSMList(gse))
+pdata <- data.frame(samples=names(GSMList(gse)))
+rownames(pdata) <- names(GSMList(gse))
+pheno <- as(pdata,"AnnotatedDataFrame")
+eset2 <- new('ExpressionSet',exprs=data.matrix,phenoData=pheno)
+
+require(biomaRt)
+ensembl.mm = useMart('ensembl',dataset="mmusculus_gene_ensembl")
+gene_list <- getBM(attributes=c('affy_mu11ksuba', 'wikigene_name'), filters = 'affy_mu11ksuba', values = probesets, mart = ensembl.mm)
+annotated.data.matrix <- merge(gene_list, as.data.frame(data.matrix), by.x='affy_mu11ksuba', by.y=0)
+
+#reassemble into a new dataframe
+combined.data <- data.frame(
+  Gene.Name = annotated.data.matrix$wikigene_name,
+  Preconfluent = rowMeans(annotated.data.matrix[,c('GSM156862','GSM156872')], na.rm=T),
+  Confluent = rowMeans(annotated.data.matrix[,c('GSM156863','GSM156873')], na.rm=T),
+  Diff.6h = rowMeans(annotated.data.matrix[,c('GSM156864','GSM156874')], na.rm=T),
+  Diff.12h = rowMeans(annotated.data.matrix[,c('GSM156865','GSM156875')], na.rm=T),
+  Diff.24h = rowMeans(annotated.data.matrix[,c('GSM156866','GSM156876')], na.rm=T),
+  Diff.2d = rowMeans(annotated.data.matrix[,c('GSM156867','GSM156877')], na.rm=T), 
+  Diff.3d = rowMeans(annotated.data.matrix[,c('GSM156868','GSM156878')], na.rm=T),
+  Diff.4d = rowMeans(annotated.data.matrix[,c('GSM156869','GSM156879')], na.rm=T),
+  Diff.7d = rowMeans(annotated.data.matrix[,c('GSM156870','GSM156880')], na.rm=T),
+  Diff.28d = rowMeans(annotated.data.matrix[,c('GSM156871','GSM156881')], na.rm=T)   )
+
+
+#remove duplicates
+unique.combined.data <- combined.data[!(duplicated(combined.data$Gene.Name)),]
+#remove incomplete cases
+unique.complete.data <- unique.combined.data[complete.cases(unique.combined.data),]
+#save as clu file
+gate_input_filename <- 'Differentiation Time Course.clu'
+write.table(unique.combined.data, gate_input_filename, row.names=FALSE,col.names=FALSE, sep=",", quote=F)
 ```
 
-The data was obtained from GEO using the dataset in GEO accession `r geo_accession`, which is described in `r citep("10.1016/j.cmet.2007.01.005")`.
+The data was obtained from GEO using the dataset in GEO accession `r geo_accession`, which is described in `r citep("10.1016/j.cmet.2007.01.005")`.  This file is described as:
 
+**`r Meta(gse)$summary[1]`**
+
+The file was downloaded, annotated and reformatted into an input file for GATE.  This file was saved as **`r gate_input_filename`**.
 
 References
 -----------

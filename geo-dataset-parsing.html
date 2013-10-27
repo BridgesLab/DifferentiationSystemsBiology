@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Systems Biology Analysis of 3T3-L1 Differentiation</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>Systems Biology Analysis of 3T3-L1 Differentiation</h1>
+
+<p>This was based on the tools learned about in the Coursera course.  This code was most recently run on Sun Oct 27 15:04:51 2013 and is stored at /Users/davebridges/Documents/Research/differentiation.</p>
+
+<h2>Dataset Acquisition</h2>
+
+<pre><code>## Parsing....
+</code></pre>
+
+<p>The data was obtained from GEO using the dataset in GEO accession GSE6794, which is described in (<a href="http://dx.doi.org/10.1016/j.cmet.2007.01.005">Cheung et al. 2007</a>).  This file is described as:</p>
+
+<p><strong>3T3-L1 fibroblasts are a commonly used in vitro model for adipogenesis.  When induced with hormones, they differentiate into mature fat cells.  Here, microarrays were used to study 3T3-L1 adipose differentiation through time.</strong></p>
+
+<p>The file was downloaded, annotated and reformatted into an input file for GATE.  This file was saved as <strong>Differentiation Time Course.clu</strong>.</p>
+
+<h2>References</h2>
+
+<ul>
+<li>Kevin J. Cheung, Iphigenia Tzameli, Pavlos Pissios, Ilsa Rovira, Oksana Gavrilova, Toshio Ohtsubo, Zhu Chen, Toren Finkel, Jeffrey S. Flier, Jeffrey M. Friedman,   (2007) Xanthine Oxidoreductase is A Regulator of Adipogenesis And Pparγ Activity.  <em>Cell Metabolism</em>  <strong>5</strong>  115-128  <a href="http://dx.doi.org/10.1016/j.cmet.2007.01.005">10.1016/j.cmet.2007.01.005</a></li>
+</ul>
+
+<h2>Session Information</h2>
+
+<pre><code>## R version 3.0.2 (2013-09-25)
+## Platform: x86_64-apple-darwin10.8.0 (64-bit)
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] parallel  stats     graphics  grDevices utils     datasets  methods  
+## [8] base     
+## 
+## other attached packages:
+## [1] biomaRt_2.18.0      knitcitations_0.5-0 bibtex_0.3-6       
+## [4] GEOquery_2.28.0     Biobase_2.22.0      BiocGenerics_0.8.0 
+## [7] knitr_1.5          
+## 
+## loaded via a namespace (and not attached):
+## [1] digest_0.6.3   evaluate_0.5.1 formatR_0.9    httr_0.2      
+## [5] RCurl_1.95-4.1 stringr_0.6.2  tools_3.0.2    XML_3.95-0.2  
+## [9] xtable_1.7-1
+</code></pre>
+
+</body>
+
+</html>
+
